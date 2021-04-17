@@ -1,7 +1,0 @@
-abdel.png,0,570,240,150
-abdel.png,330,120,330,300
-herbeT.png,240,570,150,30
-herbeT.png,390,570,150,30
-herbeT.png,540,570,150,30
-herbeT.png,690,570,30,30
-ta.PNG,30,30,150,150

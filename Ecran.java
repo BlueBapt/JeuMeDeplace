@@ -5,6 +5,7 @@ import java.io.File;
 import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.awt.Rectangle;
 public class Ecran extends JFrame{
 
 	public static Panneau pan = new Panneau();
@@ -29,12 +30,13 @@ public class Ecran extends JFrame{
         
         int posX;
         int posY;
+		int lx,ly;
         while(true){
             //Evolution dans l'espace
-            posX = (int)Panneau.joueur.getX();
-			posX= (int)(posX+((Player)Panneau.joueur).mx);
-            posY = (int)Panneau.joueur.getY();
-			posY= (int)(posY+((Player)Panneau.joueur).my);
+            lx = (int)Panneau.joueur.getX();
+			posX= (int)(lx+((Player)Panneau.joueur).mx);
+            ly = (int)Panneau.joueur.getY();
+			posY= (int)(ly+((Player)Panneau.joueur).my);
 			if((int)(posY+Panneau.joueur.getHeight())>=720){
 				((Player)Panneau.joueur).my=1;
 				posY=720-((int)Panneau.joueur.getHeight());
@@ -61,6 +63,20 @@ public class Ecran extends JFrame{
 			}
 			
             Panneau.joueur.setLocation(posX,posY);
+			for(Terrain t : Panneau.hey.niv){
+				if(Panneau.joueur.intersects(t)){
+					if(lx+Player.L<=t.getX() || lx>=(t.getX()+t.getWidth())){
+						posX=lx;
+					}else if(ly+Player.H<=t.getY()){
+						posY=(int)(t.getY()-Player.H);
+						((Player)Panneau.joueur).my=0;
+					}else if(ly>=t.getY()+t.getHeight()){
+						posY=ly;
+						((Player)Panneau.joueur).my=0;
+					}
+				}
+			}
+			Panneau.joueur.setLocation(posX,posY);
 			try {
                 Thread.sleep(10);
             }

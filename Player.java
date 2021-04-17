@@ -7,6 +7,8 @@ public class Player extends Terrain{
     public int vie;
     public double mx,my;
     public boolean mg,md;
+    public static int H=56;
+    public static int L=25;
     
     public Player(int x,int y,int lar,int haut,String nom){
         super(x,y,lar,haut,"abdel.png");
