@@ -1,0 +1,5 @@
+herbeA.png,0,540,150,180
+herbeA.png,150,540,150,180
+herbeA.png,300,540,150,180
+herbeA.png,450,540,150,180
+herbeA.png,600,540,150,180

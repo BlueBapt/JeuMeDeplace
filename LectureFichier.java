@@ -50,7 +50,7 @@ public class LectureFichier{
                         }
                         chaine="";
                     }else{
-                        if((char)caractere!='\n'){
+                        if((char)caractere!='\n' && (char)caractere!='\r'){
                             chaine = chaine+((char)caractere);
                         }
                     }
