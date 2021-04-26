@@ -15,7 +15,12 @@ public class LectureFichier{
         try {
             niveauCharge.fond = ImageIO.read(new File("levels/"+niveau+"/fond.png"));
         } catch (IOException e) {
-            System.out.println("pas de fond a ce niveau");
+            try{
+                niveauCharge.fond = ImageIO.read(new File("textures/bases/fond.png"));
+            }catch(IOException ioe){
+                System.out.println("fond non trouve");
+            }
+            
         }
 
         try {
