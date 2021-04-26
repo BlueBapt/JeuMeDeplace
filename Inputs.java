@@ -76,6 +76,8 @@ public class Inputs extends KeyAdapter{
                     if(Panneau.joueur.getX()>0){
                         ((Player)Panneau.joueur).mx=-3;
                         ((Player)Panneau.joueur).mg=true;
+                        if(!Panneau.joueur.image.equals("hg_1.png"))
+                            Panneau.joueur.changerImage("hg_1.png");
                     }
                     break;
                 case 90://z
@@ -87,6 +89,8 @@ public class Inputs extends KeyAdapter{
                     if(Panneau.joueur.getX()<=670){
                         ((Player)Panneau.joueur).mx=3;
                         ((Player)Panneau.joueur).md=true;
+                        if(!Panneau.joueur.image.equals("hd_1.png"))
+                            Panneau.joueur.changerImage("hd_1.png");
                     }
                     break;
                 case 83://s

@@ -25,7 +25,7 @@ public class Ecran extends JFrame{
 
 	}    
 	public void go(){
-        Panneau.joueur=new Player(0,0,25,56,"sprite_0.png");
+        Panneau.joueur=new Player(0,0,25,56,"hd_1.png");
 		LectureFichier.ChargerNiveau("1");
         
         int posX;
@@ -71,12 +71,20 @@ public class Ecran extends JFrame{
 						posY=(int)(t.getY()-Player.H);
 						((Player)Panneau.joueur).my=0;
 					}else if(ly>=t.getY()+t.getHeight()){
-						posY=ly;
+						posY=(int)(t.getHeight()+t.getY());
 						((Player)Panneau.joueur).my=0;
 					}
 				}
 			}
 			Panneau.joueur.setLocation(posX,posY);
+			if(Panneau.joueur.getX()<0){
+				lx=0;
+				Panneau.joueur.setLocation(0,posY);
+			}else if(Panneau.joueur.getX()>720-Player.L){
+				lx=0;
+				Panneau.joueur.setLocation(720-Player.L,posY);
+			}
+
 			try {
                 Thread.sleep(10);
             }
