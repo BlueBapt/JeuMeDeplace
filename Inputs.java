@@ -55,7 +55,12 @@ public class Inputs extends KeyAdapter{
                     break;
 
                 case 10://entree
-                    Ecran.pan.hey.ajouterTerrain(Panneau.joueur);
+                    if(Slide.bg.equals("1")){
+                        Ecran.pan.hey.ajouterTerrain(Panneau.joueur);
+                    }else{
+                        Ecran.pan.hey.ajouterBG(Panneau.joueur);
+                    }
+                    
                     break;
 
                 default:

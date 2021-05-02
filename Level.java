@@ -5,19 +5,23 @@ import java.awt.Image;
 import java.io.File;
 public class Level{
     public Image fond;
+    public Terrain[] aPlan;
     public Terrain[] niv;
     public String nom;
 
     public Level(String nom){
         this.niv= new Terrain[0];
         this.nom=nom;
+        this.aPlan=new Terrain[0];
     }
 
     public Level(Terrain[] terter,String nom){
         this.niv=terter;
         this.nom=nom;
+        this.aPlan=new Terrain[0];
     }
     public Level(Terrain[] terter,String nom,String nomfond){
+        this.aPlan=new Terrain[0];
         this.niv=terter;
         this.nom=nom;
         try {
@@ -34,6 +38,15 @@ public class Level{
         }
         this.niv=nouveau;
         this.niv[this.niv.length-1]=new Terrain(ter);
+    }
+
+    public void ajouterBG(Terrain ter){
+        Terrain[] nouveau = new Terrain[this.aPlan.length+1];
+        for(int i=0;i<this.aPlan.length;i++){
+            nouveau[i]=this.aPlan[i];
+        }
+        this.aPlan=nouveau;
+        this.aPlan[this.aPlan.length-1]=new Terrain(ter);
     }
 
     public String toString(){

@@ -85,6 +85,7 @@ public class Ecran extends JFrame{
 				Panneau.joueur.setLocation(720-Player.L,posY);
 			}
 
+			pan.repaint();
 			try {
                 Thread.sleep(10);
             }
@@ -92,7 +93,6 @@ public class Ecran extends JFrame{
                 ex.printStackTrace();
             }
 
-            pan.repaint();
         }
     } 
 

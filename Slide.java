@@ -9,8 +9,10 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 public class Slide extends JFrame{
 
+	public static String bg="1";
 	public static JPanel pan = new JPanel();
 	public JComboBox combo = new JComboBox<String>(LectureFichier.listerDoss("textures/"));
+	public JComboBox plan = new JComboBox<String>(new String[]{"1","2"});
 	public Bouton save = new Bouton("Sauvegarder");
 	public Bouton charger = new Bouton("Charger");
 	//public Bouton jouer = new Bouton("Jouer");
@@ -27,15 +29,24 @@ public class Slide extends JFrame{
 
 		combo.setPreferredSize(new Dimension(100, 26));
     	combo.addActionListener(new ItemAction());
+		plan.addActionListener(new ItemAction());
 		pan.add(combo);
 		pan.add(save);
 		pan.add(charger);
+		pan.add(plan);
 		//pan.add(jouer);
 	}
 	class ItemAction implements ActionListener{
     	public void actionPerformed(ActionEvent e) {
-			Panneau.joueur.changerImage((String)combo.getSelectedItem());
-			Ecran.pan.repaint();
+			Object source = e.getSource(); // Récupération de la source de l'evt
+			if(source.equals(combo)){
+				Panneau.joueur.changerImage((String)combo.getSelectedItem());
+				Ecran.pan.repaint();
+			}else{
+				bg=(String)plan.getSelectedItem();
+				Ecran.pan.repaint();
+			}
+			
     	}               
   	}
 
