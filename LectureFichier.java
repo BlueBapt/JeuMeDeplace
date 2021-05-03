@@ -12,6 +12,7 @@ public class LectureFichier{
         String nom="";
         int posX =0,posY=0,lar=0,hau=0;
         Level niveauCharge = new Level(niveau);
+        //chargement de l'image de fond
         try {
             niveauCharge.fond = ImageIO.read(new File("levels/"+niveau+"/fond.png"));
         } catch (IOException e) {
@@ -23,6 +24,7 @@ public class LectureFichier{
             
         }
 
+        //chargement du niveau
         try {
             reader = new BufferedReader(new FileReader("levels/"+niveau+"/niveau.txt"));
             while (pasFini) {
@@ -72,7 +74,64 @@ public class LectureFichier{
         }
         chaine="";
         caractere=1;
+        place=0;
+        posX =0;
+        posY=0;
+        lar=0;
+        hau=0;
+        nom="";
         pasFini=true;
+
+        //chargement de l'arriere plan
+        try {
+            reader = new BufferedReader(new FileReader("levels/"+niveau+"/arrierePlan.txt"));
+            while (pasFini) {
+                caractere = reader.read();
+                if (caractere != -1) { // ce n'est pas encore la fin du fichier
+                    if(caractere==10){
+                        place=0;
+                        hau=Integer.parseInt(chaine);
+                        chaine="";
+                        niveauCharge.ajouterBG(new Terrain(posX,posY,lar,hau,nom));
+                        
+                    }
+                    if(caractere==44){
+                        switch(place){
+                            case 0:
+                                nom=chaine;
+                                place++;
+                                break;
+                            case 1:
+                                posX=Integer.parseInt(chaine);
+                                place++;
+                                break;
+                            case 2:
+                                posY=Integer.parseInt(chaine);
+                                place++;
+                                break;
+                            case 3:
+                                lar=Integer.parseInt(chaine);
+                                place++;
+                                break;
+                        }
+                        chaine="";
+                    }else{
+                        if((char)caractere!='\n' && (char)caractere!='\r'){
+                            chaine = chaine+((char)caractere);
+                        }
+                    }
+                        
+
+                } else {
+                    pasFini = false;
+                }
+            }
+            reader.close();
+        } catch (IOException ioe) {
+            System.err.println(ioe);
+            System.exit(1);
+        }
+
         Panneau.hey=niveauCharge;
 
     }
@@ -90,6 +149,7 @@ public class LectureFichier{
         return null;
         
     }
+
 
     
 }

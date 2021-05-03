@@ -19,6 +19,14 @@ public class Saver{
                 fw.write(ligne);
             }
             fw.close();
+
+            fw = new FileWriter("./levels/"+nivedit+"/arrierePlan.txt");
+            ligne ="";
+            for(Terrain t : lev.aPlan){
+                ligne=t.nom+","+((int)t.getX())+","+((int)t.getY())+","+((int)t.getWidth())+","+((int)t.getHeight())+"\n";
+                fw.write(ligne);
+            }
+            fw.close();
         }catch (IOException e){
             e.printStackTrace();
         }
