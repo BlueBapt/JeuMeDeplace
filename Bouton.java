@@ -23,7 +23,9 @@ public class Bouton extends JButton implements MouseListener{
   }
 
   public void paintComponent(Graphics g){
-    Graphics2D g2d = (Graphics2D)g;
+    super.paintComponent(g);
+    super.updateUI();
+    /**Graphics2D g2d = (Graphics2D)g;
     GradientPaint gp = new GradientPaint(0, 0, Color.white, 0, 20, Color.gray, true);
     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON); 
@@ -36,6 +38,7 @@ public class Bouton extends JButton implements MouseListener{
     g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
     g2d.setColor(Color.black);
     g2d.drawString(this.name, this.getWidth() / 2 - (this.getWidth()/ 2 /4)-15, (this.getHeight() / 2) + 5);
+    */
   }
 
   //Méthode appelée lors du clic de souris
@@ -45,21 +48,51 @@ public class Bouton extends JButton implements MouseListener{
         JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
         String nom = jop.showInputDialog(null, "Sous quel nom sauvegarder?", "Sauvegarder", JOptionPane.QUESTION_MESSAGE);
         Saver save = new Saver();
-        save.sauvegarder(Panneau.hey,nom);
-        jop2.showMessageDialog(null, "Fichier sauvegarde sous : " + nom, "Fini!", JOptionPane.INFORMATION_MESSAGE);
+        if(nom!=null){
+          save.sauvegarder(Panneau.hey,nom);
+          jop2.showMessageDialog(null, "Fichier sauvegarde sous : " + nom, "Fini!", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+          jop2.showMessageDialog(null, "Annule.","Erreur", JOptionPane.WARNING_MESSAGE);
+        }
+        
         break;
       case "Charger":
         JOptionPane jop3 = new JOptionPane(), jop4 = new JOptionPane();
         String nomC = jop3.showInputDialog(null, "Quel niveau charger?", "Charger", JOptionPane.QUESTION_MESSAGE);
-        LectureFichier.ChargerNiveau(nomC);
-        Ecran.pan.repaint();
-        jop4.showMessageDialog(null, "Fichier charge (" + nomC+")", "Fini!", JOptionPane.INFORMATION_MESSAGE);
+        try{
+          if(nomC!=null){
+            LectureFichier.ChargerNiveau(nomC);
+            Ecran.pan.repaint();
+            jop4.showMessageDialog(null, "Fichier charge (" + nomC+")", "Fini!", JOptionPane.INFORMATION_MESSAGE);
+          }else{
+            jop4.showMessageDialog(null, "Annule.","Erreur", JOptionPane.WARNING_MESSAGE);
+          }
+        }catch (Exception e){
+          jop4.showMessageDialog(null, "Ce niveau n'existe pas","Erreur", JOptionPane.WARNING_MESSAGE);
+        }
+        
         break;
       case "Jouer":
         main.jouer=true;
         main.sli.dispose();
         main.fen.go();
-      break;
+        break;
+      case "zzz":
+        main.fen.pan.setBackground(Color.black);
+        main.fen.pan.repaint();
+        main.sli.pan.setBackground(Color.black);
+        main.sli.pan.repaint();
+        this.setText("wow");
+        this.name="wow";
+        break;
+      case "wow":
+        main.fen.pan.setBackground(Color.white);
+        main.fen.pan.repaint();
+        main.sli.pan.setBackground(Color.white);
+        main.sli.pan.repaint();
+        this.setText("zzz");
+        this.name="zzz";
+        break;
     }
   }
 

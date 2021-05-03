@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import javax.imageio.ImageIO;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.File;
@@ -12,21 +13,33 @@ public class Ecran extends JFrame{
 
 	public Ecran(){
 		
-		this.setTitle("Pog il se deplace");
-		this.setVisible(true);
+		this.setTitle("Plateformer");
+		this.setLocation(0,0);
 		this.setSize(736, 759);
+		try{
+			this.setIconImage(ImageIO.read(new File("textures/bases/icone.png")));
+		}catch (Exception e){
+			System.exit(1);
+		}
+		
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setContentPane(pan);
 		this.addKeyListener(new Inputs());
+		this.setVisible(true);
 		if(main.jouer)
 			this.go();
 
 	}    
 	public void go(){
         Panneau.joueur=new Player(0,0,25,56,"hd_1.png");
-		LectureFichier.ChargerNiveau("1");
+		try{
+			LectureFichier.ChargerNiveau("1");
+		}catch (Exception e){
+			System.err.println(e);
+            System.exit(1);
+		}
         
         int posX;
         int posY;

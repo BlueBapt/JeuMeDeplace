@@ -1,9 +1,10 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 public class LectureFichier{
 
-    public static void ChargerNiveau(String niveau){
+    public static void ChargerNiveau(String niveau) throws Exception{
         BufferedReader reader;
         boolean pasFini = true;
         int caractere;
@@ -69,8 +70,7 @@ public class LectureFichier{
             }
             reader.close();
         } catch (IOException ioe) {
-            System.err.println(ioe);
-            System.exit(1);
+            throw ioe;
         }
         chaine="";
         caractere=1;
@@ -140,8 +140,19 @@ public class LectureFichier{
     public static String[] listerDoss(String doss){
         try{
             File repertoire = new File(doss);
-            String liste[] = repertoire.list();      
-            return liste;
+            String liste[] = repertoire.list();
+            ArrayList<String> l=new ArrayList<String>();
+            for(String s : liste){
+                if(s.substring(s.length()-4).equals(".png")){
+                    l.add(s);
+                }
+            }
+            String[] res = new String[l.size()];
+            for(int i=0;i<res.length;i++){
+                res[i] = l.get(i);
+            }
+
+            return res;
         }catch (NullPointerException e){
             e.printStackTrace();
         }
