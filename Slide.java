@@ -1,4 +1,4 @@
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.File;
@@ -6,19 +6,21 @@ import javax.imageio.ImageIO;
 import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.event.*;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
+
 public class Slide extends JFrame{
 
 	public static String bg="1";
 	public static JPanel pan = new JPanel();
+
+	public JMenuBar barreMenu = new JMenuBar();
+	public JMenu fich = new JMenu("Fichier");
+	public JMenuItem save = new JMenuItem("Sauvegarder");
+	public JMenuItem charger = new JMenuItem("Charger");
+
 	public JComboBox combo = new JComboBox<String>(LectureFichier.listerDoss("textures/"));
 	public JComboBox plan = new JComboBox<String>(new String[]{"1","2"});
-	public Bouton save = new Bouton("Sauvegarder");
-	public Bouton charger = new Bouton("Charger");
+
 	public Bouton nuit = new Bouton("zzz");
-	//public Bouton jouer = new Bouton("Jouer");
 
 	public Slide(){
 		
@@ -31,30 +33,43 @@ public class Slide extends JFrame{
 		}
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
+		pan.setPreferredSize(new Dimension(250,720));
 		this.setContentPane(pan);
+		this.pack();
 
 		combo.setPreferredSize(new Dimension(100, 26));
 		ItemAction ita = new ItemAction();
     	combo.addActionListener(ita);
 		plan.addActionListener(ita);
+
+		InteractionMenu itm = new InteractionMenu();
+		save.addActionListener(itm);
+		charger.addActionListener(itm);
+
+
+		fich.add(save);
+		fich.add(charger);
+		barreMenu.add(fich);
+		this.setJMenuBar(barreMenu);
+
 		pan.add(combo);
-		pan.add(save);
-		pan.add(charger);
 		pan.add(new JLabel("Plan :"));
 		pan.add(plan);
 		pan.add(nuit);
 		//pan.add(jouer);
 
+		
+		this.setLocation(730,0);
 		this.setVisible(true);
 	}
+	//action listener les sliders
 	class ItemAction implements ActionListener{
     	public void actionPerformed(ActionEvent e) {
 			Object source = e.getSource(); // Récupération de la source de l'evt
 			if(source.equals(combo)){
 				Panneau.joueur.changerImage((String)combo.getSelectedItem());
 				Ecran.pan.repaint();
-			}else{
+			}else if (source.equals(plan)){
 				bg=(String)plan.getSelectedItem();
 				Ecran.pan.repaint();
 			}
@@ -62,5 +77,39 @@ public class Slide extends JFrame{
     	}               
   	}
 
+	class InteractionMenu implements ActionListener{
+		public void actionPerformed(ActionEvent event) {
+			JMenuItem source = (JMenuItem)event.getSource();
+			switch(source.getText()){
+				case "Sauvegarder":
+					JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+					String nom = jop.showInputDialog(null, "Sous quel nom sauvegarder?", "Sauvegarder", JOptionPane.QUESTION_MESSAGE);
+					Saver save = new Saver();
+					if(nom!=null){
+						save.sauvegarder(Panneau.hey,nom);
+						jop2.showMessageDialog(null, "Fichier sauvegarde sous : " + nom, "Fini!", JOptionPane.INFORMATION_MESSAGE);
+					}else{
+						jop2.showMessageDialog(null, "Annule.","Erreur", JOptionPane.WARNING_MESSAGE);
+					}
+					break;
+				case "Charger":
+
+					JOptionPane jop3 = new JOptionPane(), jop4 = new JOptionPane();
+					String nomC = jop3.showInputDialog(null, "Quel niveau charger?", "Charger", JOptionPane.QUESTION_MESSAGE);
+					try{
+						if(nomC!=null){
+							LectureFichier.ChargerNiveau(nomC);
+							Ecran.pan.repaint();
+							jop4.showMessageDialog(null, "Fichier charge (" + nomC+")", "Fini!", JOptionPane.INFORMATION_MESSAGE);
+						}else{
+							jop4.showMessageDialog(null, "Annule.","Erreur", JOptionPane.WARNING_MESSAGE);
+						}
+					}catch (Exception e){
+					jop4.showMessageDialog(null, "Ce niveau n'existe pas","Erreur", JOptionPane.WARNING_MESSAGE);
+					}
+					break;
+			}
+		}
+	}
 
 }

@@ -15,7 +15,6 @@ public class Ecran extends JFrame{
 		
 		this.setTitle("Plateformer");
 		this.setLocation(0,0);
-		this.setSize(736, 759);
 		try{
 			this.setIconImage(ImageIO.read(new File("textures/bases/icone.png")));
 		}catch (Exception e){
@@ -23,10 +22,12 @@ public class Ecran extends JFrame{
 		}
 		
 		this.setResizable(false);
+		this.setLocation(0,0);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
+		pan.setPreferredSize(new Dimension(720,720));
 		this.setContentPane(pan);
 		this.addKeyListener(new Inputs());
+		this.pack();
 		this.setVisible(true);
 		if(main.jouer)
 			this.go();

@@ -10,6 +10,7 @@ public class main{
             }
         }
         fen = new Ecran();
-        sli = new Slide();
+        if(!jouer)
+            sli = new Slide();
     }
 }
