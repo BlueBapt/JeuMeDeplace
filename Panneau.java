@@ -14,7 +14,7 @@ import java.awt.Rectangle;
 public class Panneau extends JPanel{
 
 	private Font comic= new Font("Carlito",0, 20);
-	public static Terrain joueur = new Terrain(0,0,30,30,"abdel.png");
+	public static Terrain joueur = new Terrain(0,0,30,30,"bases/objets/nextLevel.png");
 	public static Terrain[] terrain = new Terrain[0];
 	public static Level hey = new Level(terrain,"test");
   

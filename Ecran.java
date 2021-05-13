@@ -37,6 +37,7 @@ public class Ecran extends JFrame{
         Panneau.joueur=new Player(0,0,25,56,"hd_1.png");
 		try{
 			LectureFichier.ChargerNiveau("1");
+			pan.repaint();
 		}catch (Exception e){
 			System.err.println(e);
             System.exit(1);

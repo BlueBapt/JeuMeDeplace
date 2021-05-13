@@ -6,13 +6,13 @@ import java.awt.Rectangle;
 public class Terrain extends Rectangle{
     public Image image;
     public String nom;
+    public boolean isBreakable;
 
     public Terrain(int x,int y,int lon,int hau,String im){
         super(x,y,lon,hau);
         this.nom=im;
         try {
             this.image = ImageIO.read(new File("textures/"+im));
-            //g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,7 +37,12 @@ public class Terrain extends Rectangle{
     public void changerImage(String im){
         try {
             this.nom=im;
-            this.image = ImageIO.read(new File("textures/"+im));
+            if(Slide.selection.equals("b")){
+                this.image = ImageIO.read(new File("textures/bases/objets/"+im));
+            }else{
+                this.image = ImageIO.read(new File("textures/"+im));
+            }
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
