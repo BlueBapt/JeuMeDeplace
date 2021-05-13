@@ -35,8 +35,9 @@ public class Slide extends JFrame{
 		this.setContentPane(pan);
 
 		combo.setPreferredSize(new Dimension(100, 26));
-    	combo.addActionListener(new ItemAction());
-		plan.addActionListener(new ItemAction());
+		ItemAction ita = new ItemAction();
+    	combo.addActionListener(ita);
+		plan.addActionListener(ita);
 		pan.add(combo);
 		pan.add(save);
 		pan.add(charger);

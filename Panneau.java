@@ -55,8 +55,11 @@ public class Panneau extends JPanel{
 			g.setColor(new Color(0,0,0,80));
 			g.fillRect(joueur.x,joueur.y,joueur.width,joueur.height);
 		}
-		g.setColor(Color.red);
-	  	g.drawRect(joueur.x,joueur.y,joueur.width,joueur.height);
+		if(!main.jouer){
+			g.setColor(Color.red);
+	  		g.drawRect(joueur.x,joueur.y,joueur.width,joueur.height);
+		}
+		
 
   	}
 }
