@@ -3,25 +3,26 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.Image;
 import java.io.File;
+import java.util.*;
 public class Level{
     public Image fond;
-    public Terrain[] aPlan;
-    public Terrain[] niv;
+    public ArrayList<Terrain> aPlan;
+    public ArrayList<Terrain> niv;
     public String nom;
 
     public Level(String nom){
-        this.niv= new Terrain[0];
+        this.niv= new ArrayList<Terrain>();
         this.nom=nom;
-        this.aPlan=new Terrain[0];
+        this.aPlan=new ArrayList<Terrain>();
     }
 
-    public Level(Terrain[] terter,String nom){
-        this.niv=terter;
+    public Level(ArrayList<Terrain> terter,String nom){
+        this.niv=new ArrayList<Terrain>(terter);
         this.nom=nom;
-        this.aPlan=new Terrain[0];
+        this.aPlan=new ArrayList<Terrain>();
     }
-    public Level(Terrain[] terter,String nom,String nomfond){
-        this.aPlan=new Terrain[0];
+    public Level(ArrayList<Terrain> terter,String nom,String nomfond){
+        this.aPlan=new ArrayList<Terrain>();
         this.niv=terter;
         this.nom=nom;
         try {
@@ -32,24 +33,14 @@ public class Level{
     }
 
     public void ajouterTerrain(Terrain ter){
-        Terrain[] nouveau = new Terrain[this.niv.length+1];
-        for(int i=0;i<this.niv.length;i++){
-            nouveau[i]=this.niv[i];
-        }
-        this.niv=nouveau;
-        this.niv[this.niv.length-1]=new Terrain(ter);
+        this.niv.add(new Terrain(ter));
     }
 
     public void ajouterBG(Terrain ter){
-        Terrain[] nouveau = new Terrain[this.aPlan.length+1];
-        for(int i=0;i<this.aPlan.length;i++){
-            nouveau[i]=this.aPlan[i];
-        }
-        this.aPlan=nouveau;
-        this.aPlan[this.aPlan.length-1]=new Terrain(ter);
+        this.aPlan.add(new Terrain(ter));
     }
 
     public String toString(){
-        return (""+this.niv.length);
+        return (""+this.niv.size());
     }
 }

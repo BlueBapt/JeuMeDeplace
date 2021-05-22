@@ -1,0 +1,5 @@
+abdel.png,90,60,30,30,true,false
+abdel.png,90,60,30,30,true,false
+abdel.png,120,60,30,30,false,false
+abdel.png,150,60,30,30,false,true
+abdel.png,180,60,30,30,true,true

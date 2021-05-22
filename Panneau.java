@@ -10,12 +10,13 @@ import java.awt.event.MouseListener;
 import java.awt.Font;
 import java.awt.RenderingHints;
 import java.awt.Rectangle;
+import java.util.*;
 
 public class Panneau extends JPanel{
 
 	private Font comic= new Font("Carlito",0, 20);
 	public static Terrain joueur = new Terrain(0,0,30,30,"abdel.png");
-	public static Terrain[] terrain = new Terrain[0];
+	public static ArrayList<Terrain> terrain = new ArrayList<Terrain>(0);
 	public static Level hey = new Level(terrain,"test");
   
 	public void paintComponent(Graphics g){
