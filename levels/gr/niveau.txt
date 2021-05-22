@@ -1,8 +1,0 @@
-herbe_h.png,0,540,180,180
-herbe_h.png,180,540,180,180
-herbe_h.png,360,540,180,180
-herbe_h.png,540,540,180,180
-terre.png,270,480,90,60
-terre.png,360,420,90,60
-terre.png,450,360,90,60
-terre.png,600,360,120,30

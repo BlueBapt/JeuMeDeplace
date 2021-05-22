@@ -11,7 +11,9 @@ public class LectureFichier{
         String chaine ="";
         int place=0;
         String nom="";
+        Terrain terInter;
         int posX =0,posY=0,lar=0,hau=0;
+        boolean breakable=false,solid=false;
         Level niveauCharge = new Level(niveau);
         //chargement de l'image de fond
         try {
@@ -33,9 +35,12 @@ public class LectureFichier{
                 if (caractere != -1) { // ce n'est pas encore la fin du fichier
                     if(caractere==10){
                         place=0;
-                        hau=Integer.parseInt(chaine);
+                        breakable=Boolean.parseBoolean(chaine);
                         chaine="";
-                        niveauCharge.ajouterTerrain(new Terrain(posX,posY,lar,hau,nom));
+                        terInter = new Terrain(posX,posY,lar,hau,nom);
+                        terInter.setBreakable(breakable);
+                        terInter.setSolid(solid);
+                        niveauCharge.ajouterTerrain(terInter);
                     }
                     if(caractere==44){
                         switch(place){
@@ -55,6 +60,14 @@ public class LectureFichier{
                                 lar=Integer.parseInt(chaine);
                                 place++;
                                 break;
+                            case 4:
+                                hau=Integer.parseInt(chaine);
+                                place++;
+                                break;
+                            case 5:
+                                solid=Boolean.parseBoolean(chaine);
+                                place++;
+                                break;
                         }
                         chaine="";
                     }else{
@@ -72,6 +85,7 @@ public class LectureFichier{
         } catch (IOException ioe) {
             throw ioe;
         }
+        
         chaine="";
         caractere=1;
         place=0;

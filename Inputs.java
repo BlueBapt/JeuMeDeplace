@@ -56,7 +56,23 @@ public class Inputs extends KeyAdapter{
 
                 case 10://entree
                     if(Slide.bg.equals("1")){
-                        Ecran.pan.hey.ajouterTerrain(Panneau.joueur);
+                        Terrain ajout = new Terrain(Panneau.joueur);
+                        if(main.sli.isSolid.isSelected()){
+                            ajout.setSolid(true);
+                        }else{
+                            ajout.setSolid(false);
+                        }
+
+                        if(main.sli.isBreakable.isSelected()){
+                            ajout.setBreakable(true);
+                        }else{
+                            ajout.setBreakable(false);
+                        }
+                        Ecran.pan.hey.ajouterTerrain(ajout);
+
+
+
+
                     }else{
                         Ecran.pan.hey.ajouterBG(Panneau.joueur);
                     }

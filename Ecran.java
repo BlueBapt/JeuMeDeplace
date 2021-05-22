@@ -79,15 +79,17 @@ public class Ecran extends JFrame{
 			
             Panneau.joueur.setLocation(posX,posY);
 			for(Terrain t : Panneau.hey.niv){
-				if(Panneau.joueur.intersects(t)){
-					if(lx+Player.L<=t.getX() || lx>=(t.getX()+t.getWidth())){
-						posX=lx;
-					}else if(ly+Player.H<=t.getY()){
-						posY=(int)(t.getY()-Player.H);
-						((Player)Panneau.joueur).my=0;
-					}else if(ly>=t.getY()+t.getHeight()){
-						posY=(int)(t.getHeight()+t.getY());
-						((Player)Panneau.joueur).my=0;
+				if(t.isSolid){
+					if(Panneau.joueur.intersects(t)){
+						if(lx+Player.L<=t.getX() || lx>=(t.getX()+t.getWidth())){
+							posX=lx;
+						}else if(ly+Player.H<=t.getY()){
+							posY=(int)(t.getY()-Player.H);
+							((Player)Panneau.joueur).my=0;
+						}else if(ly>=t.getY()+t.getHeight()){
+							posY=(int)(t.getHeight()+t.getY());
+							((Player)Panneau.joueur).my=0;
+						}
 					}
 				}
 			}

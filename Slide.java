@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.awt.Color;
 
 public class Slide extends JFrame{
 
@@ -17,12 +18,11 @@ public class Slide extends JFrame{
 	public JMenu fich = new JMenu("Fichier");
 	public JMenuItem save = new JMenuItem("Sauvegarder");
 	public JMenuItem charger = new JMenuItem("Charger");
-	public JMenu poser = new JMenu("Blocs");
-	public JMenuItem custom = new JMenuItem("Custom");
-	public JMenuItem bases = new JMenuItem("Bases");
+
+	public JCheckBox isSolid = new JCheckBox("Solide");
+	public JCheckBox isBreakable = new JCheckBox("Cassable");
 
 	public JComboBox blocs = new JComboBox<String>(LectureFichier.listerDoss("textures/"));
-	public JComboBox spe = new JComboBox<String>(LectureFichier.listerDoss("textures/bases/objets/"));
 	public JComboBox plan = new JComboBox<String>(new String[]{"1","2"});
 
 	public Bouton nuit = new Bouton("zzz");
@@ -30,7 +30,7 @@ public class Slide extends JFrame{
 
 	public Slide(){
 		
-		this.setTitle("Blocs de base");
+		this.setTitle("Menu construction");
 		try{
 			this.setIconImage(ImageIO.read(new File("textures/bases/icone.png")));
 		}catch (Exception e){
@@ -43,32 +43,34 @@ public class Slide extends JFrame{
 		this.pack();
 
 		blocs.setPreferredSize(new Dimension(240, 26));
-		spe.setPreferredSize(new Dimension(240, 26));
 		ItemAction ita = new ItemAction();
     	blocs.addActionListener(ita);
 		plan.addActionListener(ita);
-		spe.addActionListener(ita);
 		
 
 		InteractionMenu itm = new InteractionMenu();
 		save.addActionListener(itm);
 		charger.addActionListener(itm);
-		custom.addActionListener(itm);
-		bases.addActionListener(itm);
 
 		fich.add(save);
 		fich.add(charger);
-		poser.add(custom);
-		poser.add(bases);
 		barreMenu.add(fich);
-		barreMenu.add(poser);
 
 		this.setJMenuBar(barreMenu);
 
 		pan.add(new JLabel("Plan :"));
 		pan.add(plan);
 		pan.add(nuit);
-		pan.add(spe);
+		pan.add(blocs);
+
+
+		isSolid.setPreferredSize(new Dimension(235,15));
+		isBreakable.setPreferredSize(new Dimension(235,15));
+		isSolid.setBackground(new Color(150,150,150));
+		isBreakable.setBackground(new Color(150,150,150));
+		isSolid.setSelected(true);
+		pan.add(isSolid);
+		pan.add(isBreakable);
 		//pan.add(jouer);
 
 		
@@ -84,9 +86,6 @@ public class Slide extends JFrame{
 				Ecran.pan.repaint();
 			}else if (source.equals(plan)){
 				bg=(String)plan.getSelectedItem();
-				Ecran.pan.repaint();
-			}else if(source.equals(spe)){
-				Panneau.joueur.changerImage((String)spe.getSelectedItem());
 				Ecran.pan.repaint();
 			}
 			
@@ -121,32 +120,9 @@ public class Slide extends JFrame{
 							jop4.showMessageDialog(null, "Annule.","Erreur", JOptionPane.WARNING_MESSAGE);
 						}
 					}catch (Exception e){
-					jop4.showMessageDialog(null, "Ce niveau n'existe pas","Erreur", JOptionPane.WARNING_MESSAGE);
+						e.printStackTrace();
+						jop4.showMessageDialog(null, "Ce niveau n'existe pas :\""+nomC+"\"","Erreur", JOptionPane.WARNING_MESSAGE);
 					}
-					break;
-				case "Bases":
-					if(!Slide.selection.equals("b")){
-						main.sli.getContentPane().remove(blocs);
-						main.sli.add(spe);
-						main.sli.setTitle("Blocs de base");
-						Slide.selection="b";
-						Panneau.joueur.changerImage((String)spe.getSelectedItem());
-						main.sli.repaint();
-						main.fen.repaint();
-					}
-					break;
-
-				case "Custom":
-					if(!Slide.selection.equals("c")){
-						main.sli.getContentPane().remove(spe);
-						main.sli.add(blocs);
-						main.sli.setTitle("Blocs customs");
-						Slide.selection="c";
-						Panneau.joueur.changerImage((String)blocs.getSelectedItem());
-						main.sli.repaint();
-						main.fen.repaint();
-					}
-					
 					break;
 
 			}

@@ -14,7 +14,7 @@ import java.awt.Rectangle;
 public class Panneau extends JPanel{
 
 	private Font comic= new Font("Carlito",0, 20);
-	public static Terrain joueur = new Terrain(0,0,30,30,"bases/objets/nextLevel.png");
+	public static Terrain joueur = new Terrain(0,0,30,30,"abdel.png");
 	public static Terrain[] terrain = new Terrain[0];
 	public static Level hey = new Level(terrain,"test");
   
@@ -42,11 +42,20 @@ public class Panneau extends JPanel{
 			}
 		}
 
-		g.setColor(Color.black); //premier plan
 		for(Terrain t : hey.niv){
 			g.drawImage(t.image,t.x,t.y,t.width,t.height,this);
 			if(!main.jouer){
+				if(!t.isSolid){
+					g.setColor(Color.yellow);
+				}else{
+					g.setColor(Color.black);
+				}
 				g.drawRect(t.x,t.y,t.width,t.height);
+
+				if(t.isBreakable){
+					g.setColor(Color.yellow);
+					g.drawLine(t.x,t.y,t.x+t.width,t.y+t.height);
+				}
 			}
 		}
 

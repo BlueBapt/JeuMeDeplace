@@ -15,7 +15,8 @@ public class Saver{
             FileWriter fw = new FileWriter("./levels/"+nivedit+"/niveau.txt");
             String ligne ="";
             for(Terrain t : lev.niv){
-                ligne=t.nom+","+((int)t.getX())+","+((int)t.getY())+","+((int)t.getWidth())+","+((int)t.getHeight())+"\n";
+                //nom,x,y,largeur,hauteur,solidité,cassabilité
+                ligne=t.nom+","+((int)t.getX())+","+((int)t.getY())+","+((int)t.getWidth())+","+((int)t.getHeight())+","+t.isSolid+","+t.isBreakable+"\n";
                 fw.write(ligne);
             }
             fw.close();
